@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ray Core &#8212; Learning Ray</title>
+    <title>Ray Workflows &#8212; Learning Ray</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pattern: task-parallel (remote functions)" href="01_tasks.html" />
-    <link rel="prev" title="Python setup" href="../python_setup.html" />
+    <link rel="next" title="Ray Tune" href="../05_ray_tune/00_intro.html" />
+    <link rel="prev" title="Ray Data" href="../03_ray_data/00_intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -102,28 +102,28 @@
    Python setup
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01_ray_core/00_intro.html">
    Ray Core
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="01_tasks.html">
+    <a class="reference internal" href="../01_ray_core/01_tasks.html">
      Pattern: task-parallel (remote functions)
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="02_remote_objects.html">
+    <a class="reference internal" href="../01_ray_core/02_remote_objects.html">
      Pattern: distributed objects
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="03_actors.html">
+    <a class="reference internal" href="../01_ray_core/03_actors.html">
      Actor Pattern
     </a>
    </li>
@@ -139,8 +139,8 @@
    Ray Data
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../04_ray_workflows/00_intro.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Ray Workflows
   </a>
  </li>
@@ -205,7 +205,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/01_ray_core/00_intro.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/04_ray_workflows/00_intro.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -230,7 +230,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01_ray_core/00_intro.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/04_ray_workflows/00_intro.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -247,19 +247,6 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#background">
-   Background
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -268,30 +255,8 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="ray-core">
-<h1>Ray Core<a class="headerlink" href="#ray-core" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference external" href="https://patterns.eecs.berkeley.edu/">pattern language</a> for distibuted systems as a library in Python, Java, and C++.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="01_tasks.html"><span class="doc std std-doc">task-parallel</span></a> - stateless, data independence</p></li>
-<li><p><a class="reference internal" href="02_remote_objects.html"><span class="doc std std-doc">remote objects</span></a> - key/value store</p></li>
-<li><p><a class="reference internal" href="03_actors.html"><span class="doc std std-doc">actor pattern</span></a> - messages among classes, managing state</p></li>
-<li><p><strong>parallel iterators</strong> - lazy, infinite sequences</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">multiprocessing.Pool</span></code> - drop-in replacement</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">joblib</span></code> - e.g., <em>scikit-learn</em> back-end</p></li>
-<li><p>Dask, Modin, Mars, etc.</p></li>
-</ul>
-<p>Mix and match as needed, without tight coupling to framework</p>
-<div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
-<p>Ray makes use of:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6">closures and decorators in Python</a> (<a class="reference external" href="https://www.python.org/dev/peps/pep-0318/">PEP 318</a>)</p></li>
-<li><p><a class="reference external" href="http://dist-prog-book.com/chapter/2/futures.html#introduction">futures and promises in Python</a></p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/library/asyncio-task.html">asyncio in Python</a></p></li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="ray-workflows">
+<h1>Ray Workflows<a class="headerlink" href="#ray-workflows" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -307,7 +272,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./01_ray_core"
+            path: "./04_ray_workflows"
         },
         predefinedOutput: true
     }
@@ -319,17 +284,17 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../python_setup.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../03_ray_data/00_intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Python setup</p>
+            <p class="prev-next-title">Ray Data</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="01_tasks.html" title="next page">
+    <a class='right-next' id="next-link" href="../05_ray_tune/00_intro.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Pattern: task-parallel (remote functions)</p>
+        <p class="prev-next-title">Ray Tune</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
