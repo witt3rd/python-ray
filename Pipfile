@@ -8,6 +8,8 @@ ray = "*"
 hiredis = "*"
 pandas = "*"
 bs4 = "*"
+jupyter-book = "*"
+ghp-import = "*"
 
 [dev-packages]
 autopep8 = "*"

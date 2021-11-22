@@ -1,0 +1,8 @@
+format: jb-book
+root: landing-page
+chapters:
+- file: 01_ray_core/00_intro
+  sections: 
+  - file: 01_ray_core/01_tasks
+  - file: 01_ray_core/02_remote_objects
+  - file: 01_ray_core/03_actors

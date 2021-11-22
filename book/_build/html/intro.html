@@ -1,0 +1,646 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ray: Cloud Native Distributed Computing Platform &#8212; Learning Ray</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Learning Ray: The Cloud Native Distributed Computing Platform" href="landing-page.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/ray_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Learning Ray</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Learning Ray: The Cloud Native Distributed Computing Platform
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Ray: Cloud Native Distributed Computing Platform
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/intro.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/intro.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#core-links">
+   Core Links
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#papers-and-posts">
+   Papers and Posts
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#videos">
+   Videos
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ray-is">
+   Ray is:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-does-it-fit-with-ml">
+   How does it “fit” with ML?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simpler-way-to-build-1st-2nd-generation-ml-pipelines">
+   A simpler way to build 1st/2nd generation ML pipelines
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ray-core">
+   Ray Core
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background">
+     Background
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pattern-task-parallel-remote-functions">
+     Pattern: task-parallel (remote functions)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#example-1">
+       Example 1
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#example-2">
+       Example 2
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#exercise">
+       Exercise
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#example-3">
+       Example 3
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pattern-distributed-objects">
+     Pattern: distributed objects
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Example 1
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Example 2
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#actor-pattern">
+     Actor Pattern
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="ray-cloud-native-distributed-computing-platform">
+<h1>Ray: Cloud Native Distributed Computing Platform<a class="headerlink" href="#ray-cloud-native-distributed-computing-platform" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="core-links">
+<h2>Core Links<a class="headerlink" href="#core-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.ray.io/">ray.io</a></p></li>
+<li><p><a class="reference external" href="https://docs.ray.io/">docs.ray.io</a></p></li>
+<li><p><span class="xref myst">github/ray-project</span></p></li>
+</ul>
+</div>
+<div class="section" id="papers-and-posts">
+<h2>Papers and Posts<a class="headerlink" href="#papers-and-posts" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2019/EECS-2019-3.pdf">Cloud Programming Simplified: A Berkeley View on Serverless Computing</a></p></li>
+<li><p><a class="reference external" href="https://docs.google.com/document/d/1lAy0Owi-vPz2jEqBSaHNQcy2IBSDEHyXNOQZlGuj93c/preview">Ray 1.x Architecture</a></p></li>
+<li><p><a class="reference external" href="https://towardsdatascience.com/modern-parallel-and-distributed-python-a-quick-tutorial-on-ray-99f8d70369b8">Modern Parallel and Distributed Python: A Quick Tutorial on Ray</a></p></li>
+<li><p><a class="reference external" href="https://gradientflow.com/combine-the-development-experience-of-a-laptop-with-the-scale-of-the-cloud/">Combine the development experience of a laptop with the scale of the cloud</a></p></li>
+</ul>
+</div>
+<div class="section" id="videos">
+<h2>Videos<a class="headerlink" href="#videos" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://youtu.be/_KOlq2C-568">Ray Core Tutorial</a> (<a class="reference external" href="https://github.com/derwenai/ray_tutorial">source code</a>) (<span class="xref myst">slides</span>)</p></li>
+</ul>
+</div>
+<div class="section" id="ray-is">
+<h2>Ray is:<a class="headerlink" href="#ray-is" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>A simple and flexible framework for distributed cloud computing</p>
+<ul class="simple">
+<li><p>Simple: simple annotation to make functions &amp; classes distribute.</p></li>
+<li><p>Flexible: create new distributed function calls &amp; instances.  No batching required.</p></li>
+</ul>
+</li>
+<li><p>A cloud-provider independent compute launcher/autoscaler</p></li>
+<li><p>An ecosystem of distributed computation libraries build with #1</p></li>
+</ol>
+</div>
+<div class="section" id="how-does-it-fit-with-ml">
+<h2>How does it “fit” with ML?<a class="headerlink" href="#how-does-it-fit-with-ml" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.anyscale.com/blog/the-third-generation-of-production-ml-architectures">3rd generation ML architecture</a>: tackling the problem of production ML architecure by making it programmable.</p>
+<p>Moves the focus to libraries instead of worried about distributed computation and underlying clusters.</p>
+</div>
+<div class="section" id="a-simpler-way-to-build-1st-2nd-generation-ml-pipelines">
+<h2>A simpler way to build 1st/2nd generation ML pipelines<a class="headerlink" href="#a-simpler-way-to-build-1st-2nd-generation-ml-pipelines" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Flexibility of a programming language to define pipelines</p></li>
+<li><p>More easily allows for shared components (e.g., feature transformation during training vs real-time)</p></li>
+<li><p>“Out of the box” support for distributed ML</p></li>
+</ul>
+</div>
+<div class="section" id="ray-core">
+<h2>Ray Core<a class="headerlink" href="#ray-core" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference external" href="https://patterns.eecs.berkeley.edu/">pattern language</a> for distibuted systems as a library in Python, Java, and C++.</p>
+<ul class="simple">
+<li><p><strong>task-parallel</strong> - stateless, data independence</p></li>
+<li><p><strong>remote objects</strong> - key/value store</p></li>
+<li><p><strong>actor pattern</strong> - messages among classes, managing state</p></li>
+<li><p><strong>parallel iterators</strong> - lazy, infinite sequences</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multiprocessing.Pool</span></code> - drop-in replacement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joblib</span></code> - e.g., <em>scikit-learn</em> back-end</p></li>
+<li><p>Dask, Modin, Mars, etc.</p></li>
+</ul>
+<p>Mix and match as needed, without tight coupling to framework</p>
+<div class="section" id="background">
+<h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
+<p>Ray makes use of:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6">closures and decorators in Python</a> (<a class="reference external" href="https://www.python.org/dev/peps/pep-0318/">PEP 318</a>)</p></li>
+<li><p><a class="reference external" href="http://dist-prog-book.com/chapter/2/futures.html#introduction">futures and promises in Python</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/asyncio-task.html">asyncio in Python</a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Start Ray. If you&#39;re connecting to an existing cluster, you would use</span>
+<span class="c1"># ray.init(address=&lt;cluster-address&gt;) instead.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+    <span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>              <span class="c1"># Don&#39;t print error messages if a Ray instance is already running. Attach to it</span>
+    <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>           
+<span class="p">)</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">cluster_resources</span><span class="p">()</span>                    <span class="c1"># get the cluster resources</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;node:192.168.50.185&#39;: 1.0,
+ &#39;GPU&#39;: 1.0,
+ &#39;memory&#39;: 2483038619.0,
+ &#39;object_store_memory&#39;: 1241519308.0,
+ &#39;CPU&#39;: 4.0,
+ &#39;accelerator_type:GT&#39;: 1.0}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="pattern-task-parallel-remote-functions">
+<h3>Pattern: task-parallel (remote functions)<a class="headerlink" href="#pattern-task-parallel-remote-functions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>add <code class="docutils literal notranslate"><span class="pre">&#64;ray.remote</span></code> decorator on a regular Python function</p></li>
+<li><p>properties: <em>data independence</em>, <em>stateless</em></p></li>
+<li><p>patterns: <a class="reference external" href="https://patterns.eecs.berkeley.edu/?page_id=208">Task Parallelism</a>, <a class="reference external" href="https://patterns.eecs.berkeley.edu/?page_id=609">Task Graph</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=a1kNnQu6vGw">Ray Internals: A Peek at <code class="docutils literal notranslate"><span class="pre">ray.get</span></code> - Stephanie Wang, Anyscale</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/1oSBxTayfJc">Ray Internals: Object Management with the Ownership Model</a> (<a class="reference external" href="https://speakerdeck.com/anyscale/ray-internals-object-management-with-the-ownership-model-stephanie-wang-and-yi-cheng-anyscale">slides</a>)</p></li>
+<li><p>reference: <a class="reference external" href="https://www.goodreads.com/book/show/85053.Patterns_for_Parallel_Programming">Patterns for Parallel Programming</a></p></li>
+</ul>
+<div class="section" id="example-1">
+<h4>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h4>
+<p>Simple remote function (task).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A regular Python function can be decorated with @ray.remote</span>
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="c1"># The function can be invoked by using the `remote` method</span>
+<span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+
+<span class="c1"># The values it returns can be collected using the `get` method.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">futures</span><span class="p">))</span>  <span class="c1"># [0, 1, 4, 9]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 4, 9]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="example-2">
+<h4>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h4>
+<p>Parallel task execution and blocking on futures (object refs).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A function simulating a more interesting computation that takes one second.</span>
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">slow_function</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">i</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+  <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slow_function</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+<span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Executing the for loop took </span><span class="si">{:.3f}</span><span class="s1"> seconds.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">duration</span><span class="p">))</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The results are:&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">results</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;Did you remember to call ray.get?&#39;</span>
+
+<span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Executing the example took </span><span class="si">{:.3f}</span><span class="s1"> seconds.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">duration</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Executing the for loop took 0.006 seconds.
+The results are: [0, 1, 2, 3]
+Executing the example took 3.225 seconds.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="exercise">
+<h4>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h4>
+<p>Use the UI to view the task timeline and to verify that the four tasks were executed in parallel. You can do this as follows.</p>
+<ol class="simple">
+<li><p>Run the following cell to generate a JSON file containing the profiling data.</p></li>
+<li><p>Download the timeline file by right clicking on <code class="docutils literal notranslate"><span class="pre">task_parallel_ex_2.json</span></code> in the <strong>Files</strong> tab in the navigator to the left, right clicking, and selecting  <strong>“Download”</strong>.</p></li>
+<li><p>Enter <strong>chrome://tracing</strong> into the Chrome web browser, click on the <strong>“Load”</strong> button, and select the downloaded JSON file.</p></li>
+</ol>
+<p>To navigate within the timeline:</p>
+<ul class="simple">
+<li><p>Move around by clicking and dragging.</p></li>
+<li><p>Zoom in and out by holding <strong>alt</strong> on Windows or <strong>option</strong> on Mac and scrolling.</p></li>
+</ul>
+<p><strong>NOTE:</strong> The timeline visualization will only work in <strong>Chrome</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ray</span><span class="o">.</span><span class="n">timeline</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;output/task_parallel_ex_2.json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="example-3">
+<h4>Example 3<a class="headerlink" href="#example-3" title="Permalink to this headline">¶</a></h4>
+<p>Passing object refs between tasks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">1</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">function_with_an_argument</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">obj_ref1</span> <span class="o">=</span> <span class="n">my_function</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+
+<span class="c1"># You can pass an object ref as an argument to another Ray remote function.</span>
+<span class="n">obj_ref2</span> <span class="o">=</span> <span class="n">function_with_an_argument</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">obj_ref1</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="pattern-distributed-objects">
+<h3>Pattern: distributed objects<a class="headerlink" href="#pattern-distributed-objects" title="Permalink to this headline">¶</a></h3>
+<p>Remote objects:</p>
+<ul class="simple">
+<li><p>distributed shared-memory object store</p></li>
+<li><p>think: passing variables across the cluster</p></li>
+<li><p>Ray will do object spilling to disk if needed</p></li>
+</ul>
+<p>In Ray, we can create and compute on objects. We refer to these objects as remote objects, and we use object refs to refer to them. Remote objects are stored in shared-memory object stores, and there is one object store per node in the cluster. In the cluster setting, we may not actually know which machine each object lives on.</p>
+<p>An object ref is essentially a unique ID that can be used to refer to a remote object. If you’re familiar with futures, our object refs are conceptually similar.</p>
+<p>Object refs can be created in multiple ways:</p>
+<ul class="simple">
+<li><p>by remote function calls</p></li>
+<li><p>by <code class="docutils literal notranslate"><span class="pre">ray.put()</span></code></p></li>
+</ul>
+<div class="section" id="id1">
+<h4>Example 1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>Simple <code class="docutils literal notranslate"><span class="pre">put()</span></code> / <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">obj_ref</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref</span><span class="p">)</span> <span class="o">==</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Example 2<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>Parallel <code class="docutils literal notranslate"><span class="pre">put()</span></code> / <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="n">ray</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="actor-pattern">
+<h3>Actor Pattern<a class="headerlink" href="#actor-pattern" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">class</span> <span class="nc">Counter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+
+
+<span class="n">counters</span> <span class="o">=</span> <span class="p">[</span><span class="n">Counter</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">increment</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">]</span>
+<span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">futures</span><span class="p">))</span>  <span class="c1"># [1, 1, 1, 1]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 1, 1, 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p><img alt="Ray Head and Worker Nodes" src="_images/ray_head_worker_nodes.jpg" /></p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="landing-page.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Learning Ray: The Cloud Native Distributed Computing Platform</p>
+        </div>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

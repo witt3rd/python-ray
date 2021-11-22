@@ -1,5 +1,9 @@
 # Ray Learning
 
+This is a collection of learning resources for the [Ray](https://ray.readthedocs.io/) framework.
+
+It is primarily structured as a collection of Python notebooks, starting with [this one](notebooks/00_intro.ipynb), but also includes some deployable projects found in the `tutorials` directory.
+
 ## Python setup
 
 - [How to Manage your Python Projects with Pipenv & Pyenv](https://www.rootstrap.com/blog/how-to-manage-your-python-projects-with-pipenv-pyenv/)
