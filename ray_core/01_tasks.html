@@ -277,6 +277,21 @@
    Passing object refs to remote functions
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specifying-required-resources">
+   Specifying required resources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-returns">
+   Multiple returns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cancelling-tasks">
+   Cancelling tasks
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -307,24 +322,25 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<span class="c1"># Start Ray. If you&#39;re connecting to an existing cluster, you would use</span>
-<span class="c1"># ray.init(address=&lt;cluster-address&gt;) instead.</span>
+<span class="c1"># Start Ray. If you&#39;re connecting to an existing cluster, you would use ray.init(address=&lt;cluster-address&gt;) instead.</span>
 <span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
     <span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-    <span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>              <span class="c1"># Don&#39;t print error messages if a Ray instance is already running. Attach to it</span>
-    <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>           
+    <span class="n">num_gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">resources</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Custom&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">ray</span><span class="o">.</span><span class="n">cluster_resources</span><span class="p">()</span>                    <span class="c1"># get the cluster resources</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;accelerator_type:GT&#39;: 1.0,
- &#39;object_store_memory&#39;: 970769203.0,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;node:172.27.178.185&#39;: 1.0,
+ &#39;Custom&#39;: 2.0,
+ &#39;memory&#39;: 18844972647.0,
  &#39;CPU&#39;: 4.0,
- &#39;memory&#39;: 1941538407.0,
  &#39;GPU&#39;: 1.0,
- &#39;node:192.168.50.185&#39;: 1.0}
+ &#39;object_store_memory&#39;: 9422486323.0}
 </pre></div>
 </div>
 </div>
@@ -332,7 +348,7 @@
 </div>
 <div class="section" id="remote-functions-tasks">
 <h2>Remote functions (Tasks)<a class="headerlink" href="#remote-functions-tasks" title="Permalink to this headline">¶</a></h2>
-<p>Simply add a decorator to a normal Python function to indicate that it can be run remotely.  It must be stateless (i.e., it does not maintain state between calls).  It can take arguments and return values, which are really special object refs (futures) that must be accessed with <code class="docutils literal notranslate"><span class="pre">ray.get</span></code>.</p>
+<p>Simply add a decorator to a normal Python function to indicate that it can be run remotely. It must be stateless (i.e., it does not maintain state between calls). It can take arguments and return values, which are really special object refs (futures) that must be accessed with <code class="docutils literal notranslate"><span class="pre">ray.get</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A regular Python function can be decorated with @ray.remote</span>
@@ -435,6 +451,64 @@ Executing the example took 3.225 seconds.
 <span class="c1"># You can pass an object ref as an argument to another Ray remote function.</span>
 <span class="n">obj_ref2</span> <span class="o">=</span> <span class="n">function_with_an_argument</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">obj_ref1</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="specifying-required-resources">
+<h2>Specifying required resources<a class="headerlink" href="#specifying-required-resources" title="Permalink to this headline">¶</a></h2>
+<p>Ray also allows specifying a task’s resources requirements (e.g., CPU, GPU, and custom resources). The task will only run on a machine if there are enough resources available to execute the task.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify required resources.</span>
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">num_gpus</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="multiple-returns">
+<h2>Multiple returns<a class="headerlink" href="#multiple-returns" title="Permalink to this headline">¶</a></h2>
+<p>Python remote functions can return multiple object refs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">num_returns</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">return_multiple</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">return_multiple</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="cancelling-tasks">
+<h2>Cancelling tasks<a class="headerlink" href="#cancelling-tasks" title="Permalink to this headline">¶</a></h2>
+<p>Remote functions can be cancelled by calling <code class="docutils literal notranslate"><span class="pre">ray.cancel</span></code> on the returned object ref.  Remote actor functions can be stopped by using the <code class="docutils literal notranslate"><span class="pre">ray.kill</span></code> interface.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">blocking_operation</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">10e6</span><span class="p">)</span>
+
+<span class="n">obj_ref</span> <span class="o">=</span> <span class="n">blocking_operation</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="n">obj_ref</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">ray.exceptions</span> <span class="kn">import</span> <span class="n">TaskCancelledError</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">TaskCancelledError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Object reference was cancelled.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Object reference was cancelled.
 </pre></div>
 </div>
 </div>
