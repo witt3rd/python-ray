@@ -1,4 +1,6 @@
-# Python setup
+# Python Setup
+
+We use `pyenv` to manage Python versions and `pipenv` to manage project dependencies and virtual environments as described in the following article:
 
 - [How to Manage your Python Projects with Pipenv & Pyenv](https://www.rootstrap.com/blog/how-to-manage-your-python-projects-with-pipenv-pyenv/)
 

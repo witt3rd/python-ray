@@ -5,54 +5,54 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Python Setup &#8212; Learning Ray</title>
+    <title>Ray Train &#8212; Learning Ray</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
 
     
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Ray Core" href="ray_core/00_intro.html" />
-    <link rel="prev" title="The Cloud Native Distributed Computing Platform" href="landing-page.html" />
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Integrations" href="../ray_integrations/00_intro.html" />
+    <link rel="prev" title="Ray RLLib" href="../ray_rllib/00_intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -72,38 +72,38 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+    <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
       
       
-      <img src="_static/ray_logo.png" class="logo" alt="logo">
+      <img src="../_static/ray_logo.png" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Learning Ray</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="landing-page.html">
+  <a class="reference internal" href="../landing-page.html">
    The Cloud Native Distributed Computing Platform
   </a>
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Python Setup
+ <li class="toctree-l1">
+  <a class="reference internal" href="../python_setup.html">
+   Python setup
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="ray_core/00_intro.html">
+  <a class="reference internal" href="../ray_core/00_intro.html">
    Ray Core
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -113,59 +113,59 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="ray_core/01_tasks.html">
+    <a class="reference internal" href="../ray_core/01_tasks.html">
      Pattern: task-parallel (remote functions)
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="ray_core/02_remote_objects.html">
+    <a class="reference internal" href="../ray_core/02_remote_objects.html">
      Pattern: distributed objects
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="ray_core/03_actors.html">
+    <a class="reference internal" href="../ray_core/03_actors.html">
      Actor Pattern
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ray_cluster/00_intro.html">
+  <a class="reference internal" href="../ray_cluster/00_intro.html">
    Ray Cluster
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ray_serve/00_intro.html">
+  <a class="reference internal" href="../ray_serve/00_intro.html">
    Ray Serve
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ray_data/00_intro.html">
+  <a class="reference internal" href="../ray_data/00_intro.html">
    Ray Data
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ray_workflows/00_intro.html">
+  <a class="reference internal" href="../ray_workflows/00_intro.html">
    Ray Workflows
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ray_tune/00_intro.html">
+  <a class="reference internal" href="../ray_tune/00_intro.html">
    Ray Tune
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ray_rllib/00_intro.html">
+  <a class="reference internal" href="../ray_rllib/00_intro.html">
    Ray RLLib
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="ray_train/00_intro.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Ray Train
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ray_integrations/00_intro.html">
+  <a class="reference internal" href="../ray_integrations/00_intro.html">
    Integrations
   </a>
  </li>
@@ -210,9 +210,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/python_setup.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/ray_train/00_intro.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -230,6 +230,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/ray_train/00_intro.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -243,44 +260,8 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="python-setup">
-<h1>Python Setup<a class="headerlink" href="#python-setup" title="Permalink to this headline">¶</a></h1>
-<p>We use <code class="docutils literal notranslate"><span class="pre">pyenv</span></code> to manage Python versions and <code class="docutils literal notranslate"><span class="pre">pipenv</span></code> to manage project dependencies and virtual environments as described in the following article:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.rootstrap.com/blog/how-to-manage-your-python-projects-with-pipenv-pyenv/">How to Manage your Python Projects with Pipenv &amp; Pyenv</a></p></li>
-</ul>
-<p>TLDR:</p>
-<p>Install Pyenv:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl https://pyenv.run <span class="p">|</span> bash
-</pre></div>
-</div>
-<p>Ensure your .profile, .bashrc, etc. is configured properly:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PYENV_ROOT</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.pyenv&quot;</span>
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PYENV_ROOT</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
-<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>pyenv init --path<span class="k">)</span><span class="s2">&quot;</span>
-</pre></div>
-</div>
-<p>Refresh your shell.</p>
-<p>Update Pyenv:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyenv update
-</pre></div>
-</div>
-<p>Install and use a Python version (globally):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pyenv install --list <span class="c1"># list all available versions</span>
-pyenv install <span class="m">3</span>.9.9 <span class="c1"># or whatever version you want</span>
-pyenv global <span class="m">3</span>.9.9 <span class="c1"># or whatever version you want</span>
-pyenv version <span class="c1"># check current version</span>
-</pre></div>
-</div>
-<p>Install Pipenv:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --user pipenv
-</pre></div>
-</div>
-<p>To activate:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv shell
-</pre></div>
-</div>
-<p>Select the Pipenv version of the Python interpreter in VS Code from the Command Palette (Ctrl+Shift+P).</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="ray-train">
+<h1>Ray Train<a class="headerlink" href="#ray-train" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -296,7 +277,7 @@ pyenv version <span class="c1"># check current version</span>
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./."
+            path: "./ray_train"
         },
         predefinedOutput: true
     }
@@ -308,17 +289,17 @@ pyenv version <span class="c1"># check current version</span>
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="landing-page.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../ray_rllib/00_intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">The Cloud Native Distributed Computing Platform</p>
+            <p class="prev-next-title">Ray RLLib</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="ray_core/00_intro.html" title="next page">
+    <a class='right-next' id="next-link" href="../ray_integrations/00_intro.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Ray Core</p>
+        <p class="prev-next-title">Integrations</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -342,7 +323,7 @@ pyenv version <span class="c1"># check current version</span>
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
   </body>
 </html>
