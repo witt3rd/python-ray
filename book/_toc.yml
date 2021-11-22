@@ -1,6 +1,7 @@
 format: jb-book
 root: landing-page
 chapters:
+- file: python_setup
 - file: 01_ray_core/00_intro
   sections: 
   - file: 01_ray_core/01_tasks
