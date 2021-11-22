@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ray Core &#8212; Learning Ray</title>
+    <title>Actor Pattern &#8212; Learning Ray</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -51,8 +51,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Pattern: task-parallel (remote functions)" href="01_tasks.html" />
-    <link rel="prev" title="The Cloud Native Distributed Computing Platform" href="../landing-page.html" />
+    <link rel="prev" title="Pattern: distributed objects" href="02_remote_objects.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -98,7 +97,7 @@
 </ul>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+  <a class="reference internal" href="00_intro.html">
    Ray Core
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -106,7 +105,7 @@
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="01_tasks.html">
      Pattern: task-parallel (remote functions)
@@ -117,8 +116,8 @@
      Pattern: distributed objects
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="03_actors.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Actor Pattern
     </a>
    </li>
@@ -165,7 +164,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/01_ray_core/00_intro.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/01_ray_core/03_actors.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -190,7 +189,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01_ray_core/00_intro.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/01_ray_core/03_actors.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -213,8 +212,8 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#background">
-   Background
+  <a class="reference internal nav-link" href="#example-1">
+   Example 1
   </a>
  </li>
 </ul>
@@ -228,29 +227,66 @@
         
               <div>
                 
-  <div class="section" id="ray-core">
-<h1>Ray Core<a class="headerlink" href="#ray-core" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference external" href="https://patterns.eecs.berkeley.edu/">pattern language</a> for distibuted systems as a library in Python, Java, and C++.</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="01_tasks.html"><span class="doc std std-doc">task-parallel</span></a> - stateless, data independence</p></li>
-<li><p><a class="reference internal" href="02_remote_objects.html"><span class="doc std std-doc">remote objects</span></a> - key/value store</p></li>
-<li><p><a class="reference internal" href="03_actors.html"><span class="doc std std-doc">actor pattern</span></a> - messages among classes, managing state</p></li>
-<li><p><strong>parallel iterators</strong> - lazy, infinite sequences</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">multiprocessing.Pool</span></code> - drop-in replacement</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">joblib</span></code> - e.g., <em>scikit-learn</em> back-end</p></li>
-<li><p>Dask, Modin, Mars, etc.</p></li>
-</ul>
-<p>Mix and match as needed, without tight coupling to framework</p>
-<div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
-<p>Ray makes use of:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://towardsdatascience.com/closures-and-decorators-in-python-2551abbc6eb6">closures and decorators in Python</a> (<a class="reference external" href="https://www.python.org/dev/peps/pep-0318/">PEP 318</a>)</p></li>
-<li><p><a class="reference external" href="http://dist-prog-book.com/chapter/2/futures.html#introduction">futures and promises in Python</a></p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/library/asyncio-task.html">asyncio in Python</a></p></li>
-</ul>
+  <div class="tex2jax_ignore mathjax_ignore section" id="actor-pattern">
+<h1>Actor Pattern<a class="headerlink" href="#actor-pattern" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Start Ray. If you&#39;re connecting to an existing cluster, you would use</span>
+<span class="c1"># ray.init(address=&lt;cluster-address&gt;) instead.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+    <span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>              <span class="c1"># Don&#39;t print error messages if a Ray instance is already running. Attach to it</span>
+    <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>           
+<span class="p">)</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">cluster_resources</span><span class="p">()</span>                    <span class="c1"># get the cluster resources</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;CPU&#39;: 4.0,
+ &#39;GPU&#39;: 1.0,
+ &#39;object_store_memory&#39;: 708429004.0,
+ &#39;accelerator_type:GT&#39;: 1.0,
+ &#39;node:192.168.50.185&#39;: 1.0,
+ &#39;memory&#39;: 1416858011.0}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="example-1">
+<h2>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">class</span> <span class="nc">Counter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+
+
+<span class="n">counters</span> <span class="o">=</span> <span class="p">[</span><span class="n">Counter</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">increment</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">]</span>
+<span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">futures</span><span class="p">))</span>  <span class="c1"># [1, 1, 1, 1]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 1, 1, 1]
+</pre></div>
+</div>
+</div>
+</div>
+<p><img alt="Ray Head and Worker Nodes" src="../_images/ray_head_worker_nodes.jpg" /></p>
 </div>
 </div>
 
@@ -279,19 +315,12 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../landing-page.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="02_remote_objects.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">The Cloud Native Distributed Computing Platform</p>
+            <p class="prev-next-title">Pattern: distributed objects</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="01_tasks.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Pattern: task-parallel (remote functions)</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
         
