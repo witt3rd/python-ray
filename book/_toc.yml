@@ -2,15 +2,16 @@ format: jb-book
 root: landing-page
 chapters:
 - file: python_setup
-- file: 01_ray_core/00_intro
+- file: ray_core/00_intro
   sections: 
-  - file: 01_ray_core/01_tasks
-  - file: 01_ray_core/02_remote_objects
-  - file: 01_ray_core/03_actors
-- file: 02_ray_serve/00_intro
-- file: 03_ray_data/00_intro
-- file: 04_ray_workflows/00_intro
-- file: 05_ray_tune/00_intro
-- file: 06_ray_rllib/00_intro
-- file: 07_ray_train/00_intro
-- file: 08_integrations/00_intro
+  - file: ray_core/01_tasks
+  - file: ray_core/02_remote_objects
+  - file: ray_core/03_actors
+- file: ray_cluster/00_intro
+- file: ray_serve/00_intro
+- file: ray_data/00_intro
+- file: ray_workflows/00_intro
+- file: ray_tune/00_intro
+- file: ray_rllib/00_intro
+- file: ray_train/00_intro
+- file: ray_integrations/00_intro

@@ -1,5 +1,7 @@
 # The Cloud Native Distributed Computing Platform
 
+Ray is:
+
 1. A simple and flexible framework for distributed cloud computing
    - Simple: simple annotation to make functions & classes distribute.
    - Flexible: create new distributed function calls & instances. No batching required.
