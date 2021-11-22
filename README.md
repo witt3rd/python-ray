@@ -33,7 +33,7 @@ Install and use a Python version (globally):
 ```bash
 pyenv install --list # list all available versions
 pyenv install 3.9.9 # or whatever version you want
-pyenv global 3.9.19 # or whatever version you want
+pyenv global 3.9.9 # or whatever version you want
 pyenv version # check current version
 ```
 
