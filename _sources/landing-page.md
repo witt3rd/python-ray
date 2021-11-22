@@ -16,6 +16,10 @@ Ray provides a simpler way to build 1st/2nd generation ML pipelines:
 - More easily allows for shared components (e.g., feature transformation during training vs real-time)
 - "Out of the box" support for distributed ML
 
+## Setting Up Your Python Environment
+
+In order to run the cells and the tutorial projects, you will need a Python environment with required dependencies. These are documented in [Python Setup](python_setup.md).
+
 ## References
 
 Primary links:
