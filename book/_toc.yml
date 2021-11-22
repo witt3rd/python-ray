@@ -7,3 +7,10 @@ chapters:
   - file: 01_ray_core/01_tasks
   - file: 01_ray_core/02_remote_objects
   - file: 01_ray_core/03_actors
+- file: 02_ray_serve/00_intro
+- file: 03_ray_data/00_intro
+- file: 04_ray_workflows/00_intro
+- file: 05_ray_tune/00_intro
+- file: 06_ray_rllib/00_intro
+- file: 07_ray_train/00_intro
+- file: 08_integrations/00_intro
