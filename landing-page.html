@@ -102,7 +102,7 @@
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="ray_core/00_intro.html">
+  <a class="reference internal" href="ray_core/intro.html">
    Ray Core
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -112,17 +112,27 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="ray_core/01_tasks.html">
+    <a class="reference internal" href="ray_core/tasks.html">
      Pattern: task-parallel (remote functions)
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="ray_core/02_remote_objects.html">
+    <a class="reference internal" href="ray_core/tasks_pi.html">
+     Example: Calculating Pi
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray_core/tasks_advanced.html">
+     Advanced Ray: Tasks Revisited
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray_core/remote_objects.html">
      Pattern: distributed objects
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="ray_core/03_actors.html">
+    <a class="reference internal" href="ray_core/actors.html">
      Actor Pattern
     </a>
    </li>
@@ -240,6 +250,11 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ray-is">
+   Ray is:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setting-up-your-python-environment">
    Setting Up Your Python Environment
   </a>
@@ -262,7 +277,13 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="the-cloud-native-distributed-computing-platform">
 <h1>The Cloud Native Distributed Computing Platform<a class="headerlink" href="#the-cloud-native-distributed-computing-platform" title="Permalink to this headline">¶</a></h1>
-<p>Ray is:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.ray.io/">ray.io</a> (<a class="reference external" href="https://docs.ray.io/">docs</a>) (<a class="reference external" href="http://github.com/ray-project/ray">source</a>)</p></li>
+<li><p><a class="reference external" href="https://github.com/anyscale/academy">Anyscale Academy</a></p></li>
+</ul>
+<p><img alt="The Ray Vision" src="_images/ray_vision.png" /></p>
+<div class="section" id="ray-is">
+<h2>Ray is:<a class="headerlink" href="#ray-is" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>A simple and flexible framework for distributed cloud computing</p>
 <ul class="simple">
@@ -281,28 +302,17 @@
 <li><p>More easily allows for shared components (e.g., feature transformation during training vs real-time)</p></li>
 <li><p>“Out of the box” support for distributed ML</p></li>
 </ul>
+</div>
 <div class="section" id="setting-up-your-python-environment">
 <h2>Setting Up Your Python Environment<a class="headerlink" href="#setting-up-your-python-environment" title="Permalink to this headline">¶</a></h2>
 <p>In order to run the cells and the tutorial projects, you will need a Python environment with required dependencies. These are documented in <a class="reference internal" href="python_setup.html"><span class="doc std std-doc">Python Setup</span></a>.</p>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p>Primary links:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.ray.io/">ray.io</a></p></li>
-<li><p><a class="reference external" href="https://docs.ray.io/">docs.ray.io</a></p></li>
-<li><p><a class="reference external" href="http://github.com/ray-project/ray">github/ray-project</a></p></li>
-</ul>
-<p>Papers and posts:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www2.eecs.berkeley.edu/Pubs/TechRpts/2019/EECS-2019-3.pdf">Cloud Programming Simplified: A Berkeley View on Serverless Computing</a></p></li>
 <li><p><a class="reference external" href="https://docs.google.com/document/d/1lAy0Owi-vPz2jEqBSaHNQcy2IBSDEHyXNOQZlGuj93c/preview">Ray 1.x Architecture</a></p></li>
-<li><p><a class="reference external" href="https://towardsdatascience.com/modern-parallel-and-distributed-python-a-quick-tutorial-on-ray-99f8d70369b8">Modern Parallel and Distributed Python: A Quick Tutorial on Ray</a></p></li>
 <li><p><a class="reference external" href="https://gradientflow.com/combine-the-development-experience-of-a-laptop-with-the-scale-of-the-cloud/">Combine the development experience of a laptop with the scale of the cloud</a></p></li>
-</ul>
-<p>Videos:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://youtu.be/_KOlq2C-568">Ray Core Tutorial</a> (<a class="reference external" href="https://github.com/derwenai/ray_tutorial">source code</a>) (<a class="reference external" href="https://github.com/DerwenAI/ray_tutorial/blob/main/slides/slides.pdf">slides</a>)</p></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">

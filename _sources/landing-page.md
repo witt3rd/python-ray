@@ -1,6 +1,11 @@
 # The Cloud Native Distributed Computing Platform
 
-Ray is:
+- [ray.io](https://www.ray.io/) ([docs](https://docs.ray.io/)) ([source](http://github.com/ray-project/ray))
+- [Anyscale Academy](https://github.com/anyscale/academy)
+
+![The Ray Vision](images/ray_vision.png)
+
+## Ray is:
 
 1. A simple and flexible framework for distributed cloud computing
    - Simple: simple annotation to make functions & classes distribute.
@@ -24,19 +29,6 @@ In order to run the cells and the tutorial projects, you will need a Python envi
 
 ## References
 
-Primary links:
-
-- [ray.io](https://www.ray.io/)
-- [docs.ray.io](https://docs.ray.io/)
-- [github/ray-project](http://github.com/ray-project/ray)
-
-Papers and posts:
-
 - [Cloud Programming Simplified: A Berkeley View on Serverless Computing](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2019/EECS-2019-3.pdf)
 - [Ray 1.x Architecture](https://docs.google.com/document/d/1lAy0Owi-vPz2jEqBSaHNQcy2IBSDEHyXNOQZlGuj93c/preview)
-- [Modern Parallel and Distributed Python: A Quick Tutorial on Ray](https://towardsdatascience.com/modern-parallel-and-distributed-python-a-quick-tutorial-on-ray-99f8d70369b8)
 - [Combine the development experience of a laptop with the scale of the cloud](https://gradientflow.com/combine-the-development-experience-of-a-laptop-with-the-scale-of-the-cloud/)
-
-Videos:
-
-- [Ray Core Tutorial](https://youtu.be/_KOlq2C-568) ([source code](https://github.com/derwenai/ray_tutorial)) ([slides](https://github.com/DerwenAI/ray_tutorial/blob/main/slides/slides.pdf))
