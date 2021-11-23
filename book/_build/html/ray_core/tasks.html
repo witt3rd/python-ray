@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pattern: task-parallel (remote functions) &#8212; Learning Ray</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example: Calculating Pi" href="tasks_pi.html" />
+    <link rel="prev" title="Ray Core" href="intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/ray_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Learning Ray</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../landing-page.html">
+   The Cloud Native Distributed Computing Platform
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../python_setup.html">
+   Python Setup
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="intro.html">
+   Ray Core
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Pattern: task-parallel (remote functions)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tasks_pi.html">
+     Example: Calculating Pi
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tasks_advanced.html">
+     Advanced Ray: Tasks Revisited
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="remote_objects.html">
+     Pattern: distributed objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="actors.html">
+     Actor Pattern
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray_cluster/00_intro.html">
+   Ray Cluster
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray_serve/00_intro.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray_data/00_intro.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray_workflows/00_intro.html">
+   Ray Workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray_tune/00_intro.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray_rllib/00_intro.html">
+   Ray RLLib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray_train/00_intro.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray_integrations/00_intro.html">
+   Integrations
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/ray_core/tasks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/ray_core/tasks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initializing-ray">
+   Initializing Ray
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#remote-functions-tasks">
+   Remote functions (Tasks)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parallel-execution">
+   Parallel execution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#passing-object-refs-to-remote-functions">
+   Passing object refs to remote functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-dependencies">
+   Task dependencies
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#specifying-required-resources">
+   Specifying required resources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-returns">
+   Multiple returns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cancelling-tasks">
+   Cancelling tasks
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="pattern-task-parallel-remote-functions">
+<h1>Pattern: task-parallel (remote functions)<a class="headerlink" href="#pattern-task-parallel-remote-functions" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>add <code class="docutils literal notranslate"><span class="pre">&#64;ray.remote</span></code> decorator on a regular Python function</p></li>
+<li><p>properties: <em>data independence</em>, <em>stateless</em></p></li>
+<li><p>patterns: <a class="reference external" href="https://patterns.eecs.berkeley.edu/?page_id=208">Task Parallelism</a>, <a class="reference external" href="https://patterns.eecs.berkeley.edu/?page_id=609">Task Graph</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=a1kNnQu6vGw">Ray Internals: A Peek at <code class="docutils literal notranslate"><span class="pre">ray.get</span></code> - Stephanie Wang, Anyscale</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/1oSBxTayfJc">Ray Internals: Object Management with the Ownership Model</a> (<a class="reference external" href="https://speakerdeck.com/anyscale/ray-internals-object-management-with-the-ownership-model-stephanie-wang-and-yi-cheng-anyscale">slides</a>)</p></li>
+<li><p>reference: <a class="reference external" href="https://www.goodreads.com/book/show/85053.Patterns_for_Parallel_Programming">Patterns for Parallel Programming</a></p></li>
+</ul>
+<div class="section" id="initializing-ray">
+<h2>Initializing Ray<a class="headerlink" href="#initializing-ray" title="Permalink to this headline">¶</a></h2>
+<p>Before your code can take advantage of Ray, you must initialize it, specifying any resources you want to use and runtime options.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Start Ray. If you&#39;re connecting to an existing cluster, you would use ray.init(address=&lt;cluster-address&gt;) instead.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+    <span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">num_gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">resources</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Custom&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">cluster_resources</span><span class="p">()</span>                    <span class="c1"># get the cluster resources</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;accelerator_type:GT&#39;: 1.0,
+ &#39;Custom&#39;: 2.0,
+ &#39;CPU&#39;: 4.0,
+ &#39;object_store_memory&#39;: 630671769.0,
+ &#39;memory&#39;: 1261343540.0,
+ &#39;GPU&#39;: 1.0,
+ &#39;node:192.168.50.185&#39;: 1.0}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="remote-functions-tasks">
+<h2>Remote functions (Tasks)<a class="headerlink" href="#remote-functions-tasks" title="Permalink to this headline">¶</a></h2>
+<p>Simply add a decorator to a normal Python function to indicate that it can be run remotely. It must be stateless (i.e., it does not maintain state between calls). It can take arguments and return values, which are really special object refs (futures) that must be accessed with <code class="docutils literal notranslate"><span class="pre">ray.get</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A regular Python function can be decorated with @ray.remote</span>
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="c1"># The function can be invoked by using the `remote` method</span>
+<span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+
+<span class="c1"># The values it returns can be collected using the `get` method.</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">futures</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 4, 9]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="parallel-execution">
+<h2>Parallel execution<a class="headerlink" href="#parallel-execution" title="Permalink to this headline">¶</a></h2>
+<p>Parallel task execution and blocking on futures (object refs).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A function simulating a more interesting computation that takes one second.</span>
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">slow_function</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">i</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+  <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slow_function</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+<span class="n">loop_duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">loop_duration</span><span class="si">=:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">results</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">results</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">duration</span><span class="si">=:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loop_duration=0.003 seconds
+results=[0, 1, 2, 3]
+duration=1.009 seconds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Profiling</p>
+<p>Use the UI to view the task timeline and to verify that the four tasks were executed in parallel. You can do this as follows.</p>
+<ol class="simple">
+<li><p>Run the following cell to generate a JSON file containing the profiling data.</p></li>
+<li><p>Download the timeline file by right clicking on <code class="docutils literal notranslate"><span class="pre">task_parallel_ex_2.json</span></code> in the <strong>Files</strong> tab in the navigator to the left, right clicking, and selecting  <strong>“Download”</strong>.</p></li>
+<li><p>Enter <strong>chrome://tracing</strong> into the Chrome web browser, click on the <strong>“Load”</strong> button, and select the downloaded JSON file.</p></li>
+</ol>
+<p>To navigate within the timeline:</p>
+<ul class="simple">
+<li><p>Move around by clicking and dragging.</p></li>
+<li><p>Zoom in and out by holding <strong>alt</strong> on Windows or <strong>option</strong> on Mac and scrolling.</p></li>
+</ul>
+<p><strong>NOTE</strong>: The timeline visualization will only work in <strong>Chrome</strong>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ray</span><span class="o">.</span><span class="n">timeline</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;output/task_parallel_ex_2.json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="passing-object-refs-to-remote-functions">
+<h2>Passing object refs to remote functions<a class="headerlink" href="#passing-object-refs-to-remote-functions" title="Permalink to this headline">¶</a></h2>
+<p>Passing object refs between tasks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">1</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">function_with_an_argument</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">obj_ref1</span> <span class="o">=</span> <span class="n">my_function</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">1</span>
+
+<span class="c1"># You can pass an object ref as an argument to another Ray remote function.</span>
+<span class="n">obj_ref2</span> <span class="o">=</span> <span class="n">function_with_an_argument</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">obj_ref1</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>result=1
+result=2
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-dependencies">
+<h2>Task dependencies<a class="headerlink" href="#task-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Tasks can also depend on other tasks. Below, the multiply_matrices task uses the outputs of the two create_matrix tasks, so it will not begin executing until after the first two tasks have executed. The outputs of the first two tasks will automatically be passed as arguments into the third task and the futures will be replaced with their corresponding values). In this manner, tasks can be composed together with arbitrary <a class="reference external" href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG</a> dependencies.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">create_matrix</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">multiply_matrices</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">x_id</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="o">.</span><span class="n">remote</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
+<span class="n">y_id</span> <span class="o">=</span> <span class="n">create_matrix</span><span class="o">.</span><span class="n">remote</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
+<span class="n">z_id</span> <span class="o">=</span> <span class="n">multiply_matrices</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">x_id</span><span class="p">,</span> <span class="n">y_id</span><span class="p">)</span>
+
+<span class="c1"># Get the results.</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">z_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">z</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>z=array([[-88.39524635, -29.72314319,  19.87944781, ...,  39.12211094,
+         23.88868579, -23.24869311],
+       [-13.0579471 ,  51.27063016,  14.531298  , ..., -40.43644784,
+         35.077405  ,   3.03486338],
+       [-19.13068195, -20.38121156,   1.89761406, ..., -11.50138385,
+        -18.65137992, -45.11959243],
+       ...,
+       [ 17.49179363,  44.00449335,  -5.30091598, ...,  -1.59174532,
+        -23.75073943, -31.89097424],
+       [-18.42362724, -15.95431906, -43.36040454, ..., -39.2801233 ,
+         17.48374851, -10.336184  ],
+       [ -0.15621256,  -0.57233754,  14.39710089, ..., -66.61870651,
+         54.57441197,  18.60160853]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="specifying-required-resources">
+<h2>Specifying required resources<a class="headerlink" href="#specifying-required-resources" title="Permalink to this headline">¶</a></h2>
+<p>Ray also allows specifying a task’s resources requirements (e.g., CPU, GPU, and custom resources). The task will only run on a machine if there are enough resources available to execute the task.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify required resources.</span>
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">num_gpus</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_function</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="multiple-returns">
+<h2>Multiple returns<a class="headerlink" href="#multiple-returns" title="Permalink to this headline">¶</a></h2>
+<p>Python remote functions can return multiple object refs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">num_returns</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">return_multiple</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">return_multiple</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>result=[1, 2, 3]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="cancelling-tasks">
+<h2>Cancelling tasks<a class="headerlink" href="#cancelling-tasks" title="Permalink to this headline">¶</a></h2>
+<p>Remote functions can be cancelled by calling <code class="docutils literal notranslate"><span class="pre">ray.cancel</span></code> on the returned object ref.  Remote actor functions can be stopped by using the <code class="docutils literal notranslate"><span class="pre">ray.kill</span></code> interface.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">blocking_operation</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">10e6</span><span class="p">)</span>
+
+<span class="n">obj_ref</span> <span class="o">=</span> <span class="n">blocking_operation</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="n">obj_ref</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">ray.exceptions</span> <span class="kn">import</span> <span class="n">TaskCancelledError</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">TaskCancelledError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Object reference was cancelled.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Object reference was cancelled.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ray_core"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Ray Core</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="tasks_pi.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Example: Calculating Pi</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By The Jupyter Book community<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
