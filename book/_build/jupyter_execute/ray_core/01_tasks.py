@@ -9,31 +9,35 @@
 # - [Ray Internals: A Peek at `ray.get` - Stephanie Wang, Anyscale](https://www.youtube.com/watch?v=a1kNnQu6vGw)
 # - [Ray Internals: Object Management with the Ownership Model](https://youtu.be/1oSBxTayfJc) ([slides](https://speakerdeck.com/anyscale/ray-internals-object-management-with-the-ownership-model-stephanie-wang-and-yi-cheng-anyscale))
 # - reference: [Patterns for Parallel Programming](https://www.goodreads.com/book/show/85053.Patterns_for_Parallel_Programming)
+# 
 
 # ## Initializing Ray
 # 
 # Before your code can take advantage of Ray, you must initialize it, specifying any resources you want to use and runtime options.
+# 
 
-# In[1]:
+# In[6]:
 
 
 import ray
 import logging
 import time
 
-# Start Ray. If you're connecting to an existing cluster, you would use
-# ray.init(address=<cluster-address>) instead.
+# Start Ray. If you're connecting to an existing cluster, you would use ray.init(address=<cluster-address>) instead.
 ray.init(
     num_cpus=4,
-    ignore_reinit_error=True,              # Don't print error messages if a Ray instance is already running. Attach to it
-    logging_level=logging.ERROR,           
+    num_gpus=1,
+    resources={'Custom': 2},
+    ignore_reinit_error=True,
+    logging_level=logging.ERROR,
 )
 ray.cluster_resources()                    # get the cluster resources
 
 
 # ## Remote functions (Tasks)
 # 
-# Simply add a decorator to a normal Python function to indicate that it can be run remotely.  It must be stateless (i.e., it does not maintain state between calls).  It can take arguments and return values, which are really special object refs (futures) that must be accessed with `ray.get`.
+# Simply add a decorator to a normal Python function to indicate that it can be run remotely. It must be stateless (i.e., it does not maintain state between calls). It can take arguments and return values, which are really special object refs (futures) that must be accessed with `ray.get`.
+# 
 
 # In[6]:
 
@@ -53,6 +57,7 @@ print(ray.get(futures))  # [0, 1, 4, 9]
 # ## Parallel execution
 # 
 # Parallel task execution and blocking on futures (object refs).
+# 
 
 # In[23]:
 
@@ -82,7 +87,7 @@ print('Executing the example took {:.3f} seconds.'.format(duration))
 
 
 # ```{admonition} Profiling
-# :class: tip 
+# :class: tip
 # 
 # Use the UI to view the task timeline and to verify that the four tasks were executed in parallel. You can do this as follows.
 # 
@@ -96,6 +101,7 @@ print('Executing the example took {:.3f} seconds.'.format(duration))
 # 
 # **NOTE**: The timeline visualization will only work in **Chrome**.
 # ```
+# 
 
 # In[5]:
 
@@ -106,6 +112,7 @@ ray.timeline(filename="output/task_parallel_ex_2.json")
 # ## Passing object refs to remote functions
 # 
 # Passing object refs between tasks.
+# 
 
 # In[ ]:
 
@@ -124,4 +131,55 @@ assert ray.get(obj_ref1) == 1
 # You can pass an object ref as an argument to another Ray remote function.
 obj_ref2 = function_with_an_argument.remote(obj_ref1)
 assert ray.get(obj_ref2) == 2
+
+
+# ## Specifying required resources
+# 
+# Ray also allows specifying a task’s resources requirements (e.g., CPU, GPU, and custom resources). The task will only run on a machine if there are enough resources available to execute the task.
+
+# In[3]:
+
+
+# Specify required resources.
+@ray.remote(num_cpus=4, num_gpus=2)
+def my_function():
+    return 1
+
+
+# ## Multiple returns
+# 
+# Python remote functions can return multiple object refs.
+# 
+
+# In[4]:
+
+
+@ray.remote(num_returns=3)
+def return_multiple():
+    return 1, 2, 3
+
+a, b, c = return_multiple.remote()
+assert ray.get([a, b, c]) == [1, 2, 3]
+
+
+# ## Cancelling tasks
+# 
+# Remote functions can be cancelled by calling `ray.cancel` on the returned object ref.  Remote actor functions can be stopped by using the `ray.kill` interface.
+
+# In[5]:
+
+
+@ray.remote
+def blocking_operation():
+    time.sleep(10e6)
+
+obj_ref = blocking_operation.remote()
+ray.cancel(obj_ref)
+
+from ray.exceptions import TaskCancelledError
+
+try:
+    ray.get(obj_ref)
+except TaskCancelledError:
+    print("Object reference was cancelled.")
 
