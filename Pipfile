@@ -4,12 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-ray = "*"
+ray = {extras = ["default"], version = "*"}
 hiredis = "*"
 pandas = "*"
 bs4 = "*"
 jupyter-book = "*"
 ghp-import = "*"
+bokeh = "*"
+holoviews = "*"
+datashader = "*"
 
 [dev-packages]
 autopep8 = "*"
