@@ -258,13 +258,23 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-1">
-   Example 1
+  <a class="reference internal nav-link" href="#single-object-refs">
+   Single object refs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-2">
-   Example 2
+  <a class="reference internal nav-link" href="#multiple-object-refs">
+   Multiple object refs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#timing-out">
+   Timing out
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#waiting-without-blocking">
+   Waiting without blocking
   </a>
  </li>
 </ul>
@@ -299,48 +309,118 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<span class="c1"># Start Ray. If you&#39;re connecting to an existing cluster, you would use</span>
-<span class="c1"># ray.init(address=&lt;cluster-address&gt;) instead.</span>
+<span class="c1"># Start Ray. If you&#39;re connecting to an existing cluster, you would use ray.init(address=&lt;cluster-address&gt;) instead.</span>
 <span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
     <span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-    <span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>              <span class="c1"># Don&#39;t print error messages if a Ray instance is already running. Attach to it</span>
-    <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>           
+    <span class="n">num_gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">resources</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Custom&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">ray</span><span class="o">.</span><span class="n">cluster_resources</span><span class="p">()</span>                    <span class="c1"># get the cluster resources</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;node:192.168.50.185&#39;: 1.0,
- &#39;memory&#39;: 1657056462.0,
- &#39;object_store_memory&#39;: 828528230.0,
- &#39;GPU&#39;: 1.0,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;memory&#39;: 18389100135.0,
  &#39;CPU&#39;: 4.0,
- &#39;accelerator_type:GT&#39;: 1.0}
+ &#39;node:172.27.178.185&#39;: 1.0,
+ &#39;GPU&#39;: 1.0,
+ &#39;Custom&#39;: 2.0,
+ &#39;object_store_memory&#39;: 9194550067.0}
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="example-1">
-<h2>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="single-object-refs">
+<h2>Single object refs<a class="headerlink" href="#single-object-refs" title="Permalink to this headline">¶</a></h2>
 <p>Simple <code class="docutils literal notranslate"><span class="pre">put()</span></code> / <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">obj_ref</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref</span><span class="p">)</span> <span class="o">==</span> <span class="n">y</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>result=1
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="example-2">
-<h2>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="multiple-object-refs">
+<h2>Multiple object refs<a class="headerlink" href="#multiple-object-refs" title="Permalink to this headline">¶</a></h2>
 <p>Parallel <code class="docutils literal notranslate"><span class="pre">put()</span></code> / <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="n">ray</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>result=[0, 1, 2]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="timing-out">
+<h2>Timing out<a class="headerlink" href="#timing-out" title="Permalink to this headline">¶</a></h2>
+<p>You can timeout to return early from a <code class="docutils literal notranslate"><span class="pre">get()</span></code> that’s blocking for too long.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.exceptions</span> <span class="kn">import</span> <span class="n">GetTimeoutError</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">long_running_function</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="n">obj_ref</span> <span class="o">=</span> <span class="n">long_running_function</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj_ref</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">GetTimeoutError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;`get` timed out.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>`get` timed out.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="waiting-without-blocking">
+<h2>Waiting without blocking<a class="headerlink" href="#waiting-without-blocking" title="Permalink to this headline">¶</a></h2>
+<p>After launching a number of tasks, you may want to know which ones have finisihed executing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">long_running_function</span><span class="p">():</span>
+
+    <span class="n">duration</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">ray</span><span class="o">.</span><span class="n">random_uniform</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">random_uniform</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> 
+    <span class="k">return</span> <span class="n">value</span>
+
+
+<span class="n">object_refs</span> <span class="o">=</span> <span class="p">[</span><span class="n">long_running_function</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">ready_refs</span><span class="p">,</span> <span class="n">remaining_refs</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span>
+    <span class="n">object_refs</span><span class="p">,</span> <span class="n">num_returns</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">object_refs</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ready_refs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">remaining_refs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ready_refs=[ObjectRef(34c9c2094e42fdbfffffffffffffffffffffffff0100000001000000), ObjectRef(747754f46b61f47dffffffffffffffffffffffff0100000001000000), ObjectRef(e11fe2800445c79affffffffffffffffffffffff0100000001000000), ObjectRef(139e431dd460af76ffffffffffffffffffffffff0100000001000000), ObjectRef(bbde8638d39a1245ffffffffffffffffffffffff0100000001000000), ObjectRef(44ed5e1383be6308ffffffffffffffffffffffff0100000001000000), ObjectRef(d56d800cbde6ca14ffffffffffffffffffffffff0100000001000000), ObjectRef(38db0ab51c6b6cfbffffffffffffffffffffffff0100000001000000), ObjectRef(4e2ab276f14c37c2ffffffffffffffffffffffff0100000001000000), ObjectRef(c96088b12950798bffffffffffffffffffffffff0100000001000000)]
+remaining_refs=[]
 </pre></div>
 </div>
 </div>
