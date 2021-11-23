@@ -23,35 +23,82 @@ import ray
 import logging
 import time
 
-# Start Ray. If you're connecting to an existing cluster, you would use
-# ray.init(address=<cluster-address>) instead.
+# Start Ray. If you're connecting to an existing cluster, you would use ray.init(address=<cluster-address>) instead.
 ray.init(
     num_cpus=4,
-    ignore_reinit_error=True,              # Don't print error messages if a Ray instance is already running. Attach to it
-    logging_level=logging.ERROR,           
+    num_gpus=1,
+    resources={'Custom': 2},
+    ignore_reinit_error=True,
+    logging_level=logging.ERROR,
 )
 ray.cluster_resources()                    # get the cluster resources
 
 
-# ## Example 1
+# ## Single object refs
 # 
 # Simple `put()` / `get()`.
 
-# In[4]:
+# In[8]:
 
 
 y = 1
 obj_ref = ray.put(y)
-assert ray.get(obj_ref) == y
+result = ray.get(obj_ref)
+print(f"{result=}")
+assert result == y
 
 
-# ## Example 2
+# ## Multiple object refs
 # 
 # Parallel `put()` / `get()`.
+
+# In[9]:
+
+
+result = ray.get([ray.put(i) for i in range(3)])
+print(f"{result=}")
+assert result == [0, 1, 2]
+
+
+# ## Timing out
+# 
+# You can timeout to return early from a `get()` that's blocking for too long.
 
 # In[3]:
 
 
-result = ray.get([ray.put(i) for i in range(3)])
-assert result == [0, 1, 2]
+from ray.exceptions import GetTimeoutError
+
+@ray.remote
+def long_running_function():
+    time.sleep(8)
+
+obj_ref = long_running_function.remote()
+try:
+    ray.get(obj_ref, timeout=4)
+except GetTimeoutError:
+    print("`get` timed out.")
+
+
+# ## Waiting without blocking
+# 
+# After launching a number of tasks, you may want to know which ones have finisihed executing.
+
+# In[7]:
+
+
+@ray.remote
+def long_running_function():
+
+    duration = 1 + 10 * ray.random_uniform.remote()
+    time.sleep(duration)
+    value = ray.random_uniform.remote() 
+    return value
+
+
+object_refs = [long_running_function.remote() for _ in range(10)]
+ready_refs, remaining_refs = ray.wait(
+    object_refs, num_returns=len(object_refs))
+print(f"{ready_refs=}")
+print(f"{remaining_refs=}")
 

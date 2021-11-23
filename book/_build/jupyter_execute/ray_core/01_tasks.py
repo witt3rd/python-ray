@@ -16,7 +16,7 @@
 # Before your code can take advantage of Ray, you must initialize it, specifying any resources you want to use and runtime options.
 # 
 
-# In[6]:
+# In[2]:
 
 
 import ray
@@ -39,7 +39,7 @@ ray.cluster_resources()                    # get the cluster resources
 # Simply add a decorator to a normal Python function to indicate that it can be run remotely. It must be stateless (i.e., it does not maintain state between calls). It can take arguments and return values, which are really special object refs (futures) that must be accessed with `ray.get`.
 # 
 
-# In[6]:
+# In[3]:
 
 
 # A regular Python function can be decorated with @ray.remote
@@ -51,7 +51,9 @@ def f(x):
 futures = [f.remote(i) for i in range(4)]
 
 # The values it returns can be collected using the `get` method.
-print(ray.get(futures))  # [0, 1, 4, 9]
+result = ray.get(futures)
+print(f"{result}")
+assert result == [0, 1, 4, 9]
 
 
 # ## Parallel execution
@@ -59,7 +61,7 @@ print(ray.get(futures))  # [0, 1, 4, 9]
 # Parallel task execution and blocking on futures (object refs).
 # 
 
-# In[23]:
+# In[6]:
 
 
 # A function simulating a more interesting computation that takes one second.
@@ -74,16 +76,16 @@ results = []
 for i in range(4):
   results.append(slow_function.remote(i))
 
-duration = time.perf_counter() - start_time
-print('Executing the for loop took {:.3f} seconds.'.format(duration))
+loop_duration = time.perf_counter() - start_time
+print(f"{loop_duration=:.3f} seconds")
 
 results = ray.get(results)
-print('The results are:', results)
+print(f"{results=}")
 
-assert results == [0, 1, 2, 3], 'Did you remember to call ray.get?'
+assert results == [0, 1, 2, 3]
 
 duration = time.perf_counter() - start_time
-print('Executing the example took {:.3f} seconds.'.format(duration))
+print(f"{duration=:.3f} seconds")
 
 
 # ```{admonition} Profiling
@@ -114,7 +116,7 @@ ray.timeline(filename="output/task_parallel_ex_2.json")
 # Passing object refs between tasks.
 # 
 
-# In[ ]:
+# In[7]:
 
 
 @ray.remote
@@ -126,11 +128,15 @@ def function_with_an_argument(value):
     return value + 1
 
 obj_ref1 = my_function.remote()
-assert ray.get(obj_ref1) == 1
+result = ray.get(obj_ref1)
+print(f"{result=}")
+assert result == 1
 
 # You can pass an object ref as an argument to another Ray remote function.
 obj_ref2 = function_with_an_argument.remote(obj_ref1)
-assert ray.get(obj_ref2) == 2
+result = ray.get(obj_ref2)
+print(f"{result=}")
+assert result == 2
 
 
 # ## Specifying required resources
@@ -151,7 +157,7 @@ def my_function():
 # Python remote functions can return multiple object refs.
 # 
 
-# In[4]:
+# In[8]:
 
 
 @ray.remote(num_returns=3)
@@ -159,7 +165,9 @@ def return_multiple():
     return 1, 2, 3
 
 a, b, c = return_multiple.remote()
-assert ray.get([a, b, c]) == [1, 2, 3]
+result = ray.get([a, b, c])
+print(f"{result=}")
+assert result == [1, 2, 3]
 
 
 # ## Cancelling tasks
