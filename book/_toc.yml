@@ -9,11 +9,13 @@ chapters:
   - file: ray_core/tasks_advanced
   - file: ray_core/remote_objects
   - file: ray_core/actors
-- file: ray_cluster/00_intro
-- file: ray_serve/00_intro
-- file: ray_data/00_intro
-- file: ray_workflows/00_intro
-- file: ray_tune/00_intro
-- file: ray_rllib/00_intro
-- file: ray_train/00_intro
-- file: ray_integrations/00_intro
+- file: ray_cluster/intro
+- file: ray_serve/intro
+- file: ray_data/intro
+- file: ray_workflows/intro
+- file: ray_tune/intro
+- file: ray_rllib/intro
+- file: ray_train/intro
+- file: ray_integrations/intro
+  sections:
+  - file: ray_integrations/feast

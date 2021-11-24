@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Pattern: distributed objects
+# # Remote Objects
 # 
-# Remote objects:
 # - distributed shared-memory object store
 # - think: passing variables across the cluster
 # - Ray will do object spilling to disk if needed
@@ -102,3 +101,7 @@ ready_refs, remaining_refs = ray.wait(
 print(f"{ready_refs=}")
 print(f"{remaining_refs=}")
 
+
+# ## References
+# 
+# - [Ray Core Walkthrough: Objects in Ray](https://docs.ray.io/en/latest/walkthrough.html#objects-in-ray)

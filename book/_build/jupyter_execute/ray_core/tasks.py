@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Pattern: task-parallel (remote functions)
+# # Remote Functions: Tasks
 # 
 # - add `@ray.remote` decorator on a regular Python function
 # - properties: _data independence_, _stateless_
 # - patterns: [Task Parallelism](https://patterns.eecs.berkeley.edu/?page_id=208), [Task Graph](https://patterns.eecs.berkeley.edu/?page_id=609)
-# - [Ray Internals: A Peek at `ray.get` - Stephanie Wang, Anyscale](https://www.youtube.com/watch?v=a1kNnQu6vGw)
-# - [Ray Internals: Object Management with the Ownership Model](https://youtu.be/1oSBxTayfJc) ([slides](https://speakerdeck.com/anyscale/ray-internals-object-management-with-the-ownership-model-stephanie-wang-and-yi-cheng-anyscale))
-# - reference: [Patterns for Parallel Programming](https://www.goodreads.com/book/show/85053.Patterns_for_Parallel_Programming)
-# 
 
 # ## Initializing Ray
 # 
@@ -217,3 +213,11 @@ try:
 except TaskCancelledError:
     print("Object reference was cancelled.")
 
+
+# ## References
+# 
+# - [Ray Core Walkthrough: Remote functions (Tasks)](https://docs.ray.io/en/latest/walkthrough.html#remote-functions-tasks)
+# - [Ray Internals: A Peek at `ray.get` - Stephanie Wang, Anyscale](https://www.youtube.com/watch?v=a1kNnQu6vGw)
+# - [Ray Internals: Object Management with the Ownership Model](https://youtu.be/1oSBxTayfJc) ([slides](https://speakerdeck.com/anyscale/ray-internals-object-management-with-the-ownership-model-stephanie-wang-and-yi-cheng-anyscale))
+# - [Patterns for Parallel Programming](https://www.goodreads.com/book/show/85053.Patterns_for_Parallel_Programming)
+# 

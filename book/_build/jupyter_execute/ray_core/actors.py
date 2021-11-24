@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Actor Pattern
+# # Remote Classes: Actors
+# 
+# - a `@ray.remote` decorated class is an actor
+# - properties: stateful, message-passing semantics
+# - patterns: Actors
+# - "actor lives somewhere on the cluster"
 
 # In[1]:
 

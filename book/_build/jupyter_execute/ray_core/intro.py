@@ -5,9 +5,9 @@
 # 
 # A [pattern language](https://patterns.eecs.berkeley.edu/) for distibuted systems as a library in Python, Java, and C++.
 # 
-# - [task-parallel](tasks.ipynb) - stateless, data independence
+# - [remote functions: tasks](tasks.ipynb) - stateless, data independence
 # - [remote objects](remote_objects.ipynb) - key/value store
-# - [actor pattern](actors.ipynb) - messages among classes, managing state
+# - [remote classes: actor pattern](actors.ipynb) - messages among classes, managing state
 # - **parallel iterators** - lazy, infinite sequences
 # - `multiprocessing.Pool` - drop-in replacement
 # - `joblib` - e.g., _scikit-learn_ back-end

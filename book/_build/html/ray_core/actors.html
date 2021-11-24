@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Actor Pattern &#8212; Learning Ray</title>
+    <title>Remote Classes: Actors &#8212; Learning Ray</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -52,7 +52,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Ray Cluster" href="../ray_cluster/00_intro.html" />
-    <link rel="prev" title="Pattern: distributed objects" href="remote_objects.html" />
+    <link rel="prev" title="Remote Objects" href="remote_objects.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -114,7 +114,7 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="tasks.html">
-     Pattern: task-parallel (remote functions)
+     Remote Functions: Tasks
     </a>
    </li>
    <li class="toctree-l2">
@@ -129,12 +129,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="remote_objects.html">
-     Pattern: distributed objects
+     Remote Objects
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Actor Pattern
+     Remote Classes: Actors
     </a>
    </li>
   </ul>
@@ -283,8 +283,14 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="actor-pattern">
-<h1>Actor Pattern<a class="headerlink" href="#actor-pattern" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="remote-classes-actors">
+<h1>Remote Classes: Actors<a class="headerlink" href="#remote-classes-actors" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>a <code class="docutils literal notranslate"><span class="pre">&#64;ray.remote</span></code> decorated class is an actor</p></li>
+<li><p>properties: stateful, message-passing semantics</p></li>
+<li><p>patterns: Actors</p></li>
+<li><p>“actor lives somewhere on the cluster”</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
@@ -377,7 +383,7 @@
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Pattern: distributed objects</p>
+            <p class="prev-next-title">Remote Objects</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="../ray_cluster/00_intro.html" title="next page">
