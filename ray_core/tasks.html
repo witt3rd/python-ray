@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pattern: task-parallel (remote functions) &#8212; Learning Ray</title>
+    <title>Remote Functions: Tasks &#8212; Learning Ray</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -114,7 +114,7 @@
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Pattern: task-parallel (remote functions)
+     Remote Functions: Tasks
     </a>
    </li>
    <li class="toctree-l2">
@@ -129,12 +129,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="remote_objects.html">
-     Pattern: distributed objects
+     Remote Objects
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="actors.html">
-     Actor Pattern
+     Remote Classes: Actors
     </a>
    </li>
   </ul>
@@ -273,7 +273,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#remote-functions-tasks">
+  <a class="reference internal nav-link" href="#id1">
    Remote functions (Tasks)
   </a>
  </li>
@@ -307,6 +307,11 @@
    Cancelling tasks
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -318,15 +323,12 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="pattern-task-parallel-remote-functions">
-<h1>Pattern: task-parallel (remote functions)<a class="headerlink" href="#pattern-task-parallel-remote-functions" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="remote-functions-tasks">
+<h1>Remote Functions: Tasks<a class="headerlink" href="#remote-functions-tasks" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p>add <code class="docutils literal notranslate"><span class="pre">&#64;ray.remote</span></code> decorator on a regular Python function</p></li>
 <li><p>properties: <em>data independence</em>, <em>stateless</em></p></li>
 <li><p>patterns: <a class="reference external" href="https://patterns.eecs.berkeley.edu/?page_id=208">Task Parallelism</a>, <a class="reference external" href="https://patterns.eecs.berkeley.edu/?page_id=609">Task Graph</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=a1kNnQu6vGw">Ray Internals: A Peek at <code class="docutils literal notranslate"><span class="pre">ray.get</span></code> - Stephanie Wang, Anyscale</a></p></li>
-<li><p><a class="reference external" href="https://youtu.be/1oSBxTayfJc">Ray Internals: Object Management with the Ownership Model</a> (<a class="reference external" href="https://speakerdeck.com/anyscale/ray-internals-object-management-with-the-ownership-model-stephanie-wang-and-yi-cheng-anyscale">slides</a>)</p></li>
-<li><p>reference: <a class="reference external" href="https://www.goodreads.com/book/show/85053.Patterns_for_Parallel_Programming">Patterns for Parallel Programming</a></p></li>
 </ul>
 <div class="section" id="initializing-ray">
 <h2>Initializing Ray<a class="headerlink" href="#initializing-ray" title="Permalink to this headline">¶</a></h2>
@@ -362,8 +364,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="remote-functions-tasks">
-<h2>Remote functions (Tasks)<a class="headerlink" href="#remote-functions-tasks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>Remote functions (Tasks)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Simply add a decorator to a normal Python function to indicate that it can be run remotely. It must be stateless (i.e., it does not maintain state between calls). It can take arguments and return values, which are really special object refs (futures) that must be accessed with <code class="docutils literal notranslate"><span class="pre">ray.get</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -592,6 +594,15 @@ result=2
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.ray.io/en/latest/walkthrough.html#remote-functions-tasks">Ray Core Walkthrough: Remote functions (Tasks)</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=a1kNnQu6vGw">Ray Internals: A Peek at <code class="docutils literal notranslate"><span class="pre">ray.get</span></code> - Stephanie Wang, Anyscale</a></p></li>
+<li><p><a class="reference external" href="https://youtu.be/1oSBxTayfJc">Ray Internals: Object Management with the Ownership Model</a> (<a class="reference external" href="https://speakerdeck.com/anyscale/ray-internals-object-management-with-the-ownership-model-stephanie-wang-and-yi-cheng-anyscale">slides</a>)</p></li>
+<li><p><a class="reference external" href="https://www.goodreads.com/book/show/85053.Patterns_for_Parallel_Programming">Patterns for Parallel Programming</a></p></li>
+</ul>
 </div>
 </div>
 

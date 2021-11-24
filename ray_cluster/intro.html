@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Remote Classes: Actors &#8212; Learning Ray</title>
+    <title>Ray Cluster &#8212; Learning Ray</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Ray Cluster" href="../ray_cluster/00_intro.html" />
-    <link rel="prev" title="Remote Objects" href="remote_objects.html" />
+    <link rel="next" title="Ray Serve" href="../ray_serve/intro.html" />
+    <link rel="prev" title="Remote Classes: Actors" href="../ray_core/actors.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -102,82 +102,94 @@
    Python Setup
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="intro.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ray_core/intro.html">
    Ray Core
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="tasks.html">
+    <a class="reference internal" href="../ray_core/tasks.html">
      Remote Functions: Tasks
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tasks_pi.html">
+    <a class="reference internal" href="../ray_core/tasks_pi.html">
      Example: Calculating Pi
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tasks_advanced.html">
+    <a class="reference internal" href="../ray_core/tasks_advanced.html">
      Advanced Ray: Tasks Revisited
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="remote_objects.html">
+    <a class="reference internal" href="../ray_core/remote_objects.html">
      Remote Objects
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray_core/actors.html">
      Remote Classes: Actors
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../ray_cluster/00_intro.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Ray Cluster
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../ray_serve/00_intro.html">
+  <a class="reference internal" href="../ray_serve/intro.html">
    Ray Serve
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../ray_data/00_intro.html">
+  <a class="reference internal" href="../ray_data/intro.html">
    Ray Data
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../ray_workflows/00_intro.html">
+  <a class="reference internal" href="../ray_workflows/intro.html">
    Ray Workflows
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../ray_tune/00_intro.html">
+  <a class="reference internal" href="../ray_tune/intro.html">
    Ray Tune
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../ray_rllib/00_intro.html">
+  <a class="reference internal" href="../ray_rllib/intro.html">
    Ray RLLib
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../ray_train/00_intro.html">
+  <a class="reference internal" href="../ray_train/intro.html">
    Ray Train
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../ray_integrations/00_intro.html">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ray_integrations/intro.html">
    Integrations
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray_integrations/feast.html">
+     Feast
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -220,7 +232,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/ray_core/actors.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/ray_cluster/intro.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -245,7 +257,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/ray_core/actors.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/ray_cluster/intro.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -262,19 +274,6 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-1">
-   Example 1
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -283,75 +282,8 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="remote-classes-actors">
-<h1>Remote Classes: Actors<a class="headerlink" href="#remote-classes-actors" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p>a <code class="docutils literal notranslate"><span class="pre">&#64;ray.remote</span></code> decorated class is an actor</p></li>
-<li><p>properties: stateful, message-passing semantics</p></li>
-<li><p>patterns: Actors</p></li>
-<li><p>“actor lives somewhere on the cluster”</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="c1"># Start Ray. If you&#39;re connecting to an existing cluster, you would use ray.init(address=&lt;cluster-address&gt;) instead.</span>
-<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
-    <span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-    <span class="n">num_gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">resources</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Custom&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-    <span class="n">ignore_reinit_error</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">logging_level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">ray</span><span class="o">.</span><span class="n">cluster_resources</span><span class="p">()</span>                    <span class="c1"># get the cluster resources</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;CPU&#39;: 4.0,
- &#39;node:192.168.50.185&#39;: 1.0,
- &#39;GPU&#39;: 1.0,
- &#39;object_store_memory&#39;: 967612416.0,
- &#39;Custom&#39;: 2.0,
- &#39;memory&#39;: 1935224832.0,
- &#39;accelerator_type:GT&#39;: 1.0}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="example-1">
-<h2>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
-<span class="k">class</span> <span class="nc">Counter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">def</span> <span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
-
-
-<span class="n">counters</span> <span class="o">=</span> <span class="p">[</span><span class="n">Counter</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
-<span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">increment</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">]</span>
-<span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">futures</span><span class="p">))</span>  <span class="c1"># [1, 1, 1, 1]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 1, 1, 1]
-</pre></div>
-</div>
-</div>
-</div>
-<p><img alt="Ray Head and Worker Nodes" src="../_images/ray_head_worker_nodes.jpg" /></p>
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="ray-cluster">
+<h1>Ray Cluster<a class="headerlink" href="#ray-cluster" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -367,7 +299,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./ray_core"
+            path: "./ray_cluster"
         },
         predefinedOutput: true
     }
@@ -379,17 +311,17 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="remote_objects.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../ray_core/actors.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Remote Objects</p>
+            <p class="prev-next-title">Remote Classes: Actors</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../ray_cluster/00_intro.html" title="next page">
+    <a class='right-next' id="next-link" href="../ray_serve/intro.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Ray Cluster</p>
+        <p class="prev-next-title">Ray Serve</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
